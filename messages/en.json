@@ -62,5 +62,15 @@
       "9": "9 - Extreme",
       "10": "10 - Max Effort / Mystical Visions"
     }
+  },
+  "Schedule": {
+    "title": "Operational Schedule",
+    "subtitle": "Monthly planning",
+    "today": "Today",
+    "workout_scheduled": "Scheduled Workout",
+    "workout_completed": "Mission Completed",
+    "workout_missed": "Mission Failed",
+    "rest_day": "Rest Day",
+    "no_workout_details": "No details available."
   }
 }

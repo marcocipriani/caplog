@@ -62,5 +62,15 @@
       "9": "9 - Estremo",
       "10": "10 - Esaurimento / Visioni Mistiche"
     }
+  },
+  "Schedule": {
+    "title": "Programma Operativo",
+    "subtitle": "Pianificazione mensile",
+    "today": "Oggi",
+    "workout_scheduled": "Allenamento Pianificato",
+    "workout_completed": "Missione Compiuta",
+    "workout_missed": "Missione Fallita",
+    "rest_day": "Riposo",
+    "no_workout_details": "Nessun dettaglio disponibile."
   }
 }
