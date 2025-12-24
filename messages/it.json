@@ -1,0 +1,66 @@
+{
+  "Common": {
+    "loading": "Caricamento...",
+    "save": "Salva",
+    "cancel": "Annulla"
+  },
+  "Dashboard": {
+    "welcome": "Benvenuto Recluta",
+    "mission": "Missione Odierna",
+    "orders": "Ordini del Capitano",
+    "report_btn": "Rapporto Missione",
+    "no_mission": "Nessun ordine per oggi.",
+    "rest_quote": "Riposa soldato. Domani si soffre."
+  },
+  "Role": {
+    "coach": "Coach",
+    "athlete": "Atleta",
+    "operating_as": "Stai operando come",
+    "my_profile": "Il mio Profilo",
+    "switch_role": "Cambia Ruolo",
+    "logout": "Disconnetti"
+  },
+  "Profile": {
+    "title": "Fascicolo Personale",
+    "personal_info": "Dati Identificativi",
+    "full_name": "Nome in Codice",
+    "email": "Canale Cominicazione",
+    "current_role": "Grado Attuale",
+    "since": "In servizio dal",
+    "stats_title": "Statistiche di Servizio",
+    "workouts_completed": "Missioni Completate",
+    "completion_rate": "Tasso di Successo",
+    "active_streak": "Giorni Consecutivi",
+    "role_switch_desc": "Cambia il tuo grado operativo. Attenzione: i poteri comportano responsabilità.",
+    "coach_mode": "Modalità Coach",
+    "athlete_mode": "Modalità Atleta",
+    "save_success": "Profilo aggiornato, soldato."
+  },
+  "Report": {
+    "title": "Rapporto Missione",
+    "subtitle": "Compila i dati post-operazione",
+    "distance": "Distanza (km)",
+    "duration": "Durata (minuti)",
+    "rpe": "Sforzo Percepito (RPE)",
+    "rpe_desc": "Intensità dello sforzo",
+    "is_partial": "Missione Parziale / Interrotta",
+    "is_partial_desc": "Spunta se non hai completato tutto il lavoro previsto",
+    "link": "Link Attività (Garmin/Strava)",
+    "notes": "Note Sensoriali",
+    "notes_placeholder": "Sensazioni, dolori, meteo...",
+    "submit": "Archivia Rapporto",
+    "cancel": "Annulla",
+    "rpe_scale": {
+      "1": "1 - Riposo assoluto",
+      "2": "2 - Molto facile",
+      "3": "3 - Facile",
+      "4": "4 - Moderato",
+      "5": "5 - Impegnativo",
+      "6": "6 - Pesante",
+      "7": "7 - Molto Pesante",
+      "8": "8 - Durissimo",
+      "9": "9 - Estremo",
+      "10": "10 - Esaurimento / Visioni Mistiche"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "Dashboard": {
+    "welcome": "Welcome Recruit",
+    "mission": "Today's Mission",
+    "orders": "Captain's Orders",
+    "report_btn": "Mission Report",
+    "no_mission": "No orders for today.",
+    "rest_quote": "Rest soldier. Tomorrow we suffer."
+  },
+  "Role": {
+    "coach": "Coach",
+    "athlete": "Athlete",
+    "operating_as": "Operating as",
+    "my_profile": "My Profile",
+    "switch_role": "Switch Role",
+    "logout": "Logout"
+  },
+  "Profile": {
+    "title": "Personnel File",
+    "personal_info": "Identification Data",
+    "full_name": "Codename",
+    "email": "Comm Channel",
+    "current_role": "Current Rank",
+    "since": "In service since",
+    "stats_title": "Service Stats",
+    "workouts_completed": "Missions Completed",
+    "completion_rate": "Success Rate",
+    "active_streak": "Active Streak",
+    "role_switch_desc": "Change your operating rank. Warning: power brings responsibility.",
+    "coach_mode": "Coach Mode",
+    "athlete_mode": "Athlete Mode",
+    "save_success": "Profile updated, soldier."
+  },
+  "Report": {
+    "title": "Mission Report",
+    "subtitle": "Fill in post-op data",
+    "distance": "Distance (km)",
+    "duration": "Duration (minutes)",
+    "rpe": "Perceived Exertion (RPE)",
+    "rpe_desc": "Effort intensity",
+    "is_partial": "Partial / Aborted Mission",
+    "is_partial_desc": "Check if you didn't complete the full workout",
+    "link": "Activity Link",
+    "notes": "Sensory Notes",
+    "notes_placeholder": "Feelings, pains, weather...",
+    "submit": "Archive Report",
+    "cancel": "Cancel",
+    "rpe_scale": {
+      "1": "1 - Rest",
+      "2": "2 - Very Easy",
+      "3": "3 - Easy",
+      "4": "4 - Moderate",
+      "5": "5 - Challenging",
+      "6": "6 - Hard",
+      "7": "7 - Very Hard",
+      "8": "8 - Very Tough",
+      "9": "9 - Extreme",
+      "10": "10 - Max Effort / Mystical Visions"
+    }
+  }
+}
