@@ -2,7 +2,19 @@
   "Common": {
     "loading": "Caricamento...",
     "save": "Salva",
-    "cancel": "Annulla"
+    "cancel": "Annulla",
+    "error_generic": "Errore di Sistema",
+    "back": "Indietro"
+  },
+  "Auth": {
+    "login_title": "ACCESSO AL SISTEMA",
+    "login_subtitle": "Inserire credenziali di servizio",
+    "email_label": "Identificativo (Email)",
+    "password_label": "Codice di Sicurezza",
+    "login_btn": "CONFERMA IDENTITÀ",
+    "forgot_password": "Codice smarrito?",
+    "magic_link_sent": "Link di accesso inviato al canale sicuro.",
+    "contact_coach": "Problemi di accesso? Contatta il Comando."
   },
   "Dashboard": {
     "welcome": "Benvenuto Recluta",
@@ -24,7 +36,7 @@
     "title": "Fascicolo Personale",
     "personal_info": "Dati Identificativi",
     "full_name": "Nome in Codice",
-    "email": "Canale Cominicazione",
+    "email": "Canale Comunicazione",
     "current_role": "Grado Attuale",
     "since": "In servizio dal",
     "stats_title": "Statistiche di Servizio",
@@ -46,6 +58,8 @@
     "is_partial": "Missione Parziale / Interrotta",
     "is_partial_desc": "Spunta se non hai completato tutto il lavoro previsto",
     "link": "Link Attività (Garmin/Strava)",
+    "shoes_label": "Equipaggiamento (Scarpe)",
+    "select_shoe": "Seleziona Calzatura...",
     "notes": "Note Sensoriali",
     "notes_placeholder": "Sensazioni, dolori, meteo...",
     "submit": "Archivia Rapporto",
@@ -94,6 +108,7 @@
     "title_label": "Nome in Codice (Titolo)",
     "desc_label": "Dettagli Missione",
     "notes_label": "Note Riservate (Opzionale)",
+    "voice_label": "Ordine Vocale",
     "assign_btn": "Trasmetti Ordini",
     "success": "Ordini trasmessi con successo."
   }

@@ -3,7 +3,7 @@ import { Inter, Oswald } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { createClient } from '@/utils/supabase/server'
-import { ThemeProvider } from '@/components/theme-provider' // <--- 1. IMPORTA QUESTO
+import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/Header'
 import BottomNav from '@/components/BottomNav'
 import { use } from 'react'

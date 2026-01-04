@@ -2,15 +2,27 @@
   "Common": {
     "loading": "Loading...",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "error_generic": "System Error",
+    "back": "Back"
+  },
+  "Auth": {
+    "login_title": "SYSTEM ACCESS",
+    "login_subtitle": "Enter service credentials",
+    "email_label": "Identifier (Email)",
+    "password_label": "Security Code",
+    "login_btn": "CONFIRM IDENTITY",
+    "forgot_password": "Lost code?",
+    "magic_link_sent": "Access link sent to secure channel.",
+    "contact_coach": "Access issues? Contact Command."
   },
   "Dashboard": {
     "welcome": "Welcome Recruit",
-    "mission": "Today's Mission",
+    "mission": "Daily Mission",
     "orders": "Captain's Orders",
     "report_btn": "Mission Report",
     "no_mission": "No orders for today.",
-    "rest_quote": "Rest soldier. Tomorrow we suffer."
+    "rest_quote": "Rest up, soldier. Tomorrow we grind."
   },
   "Role": {
     "coach": "Coach",
@@ -18,7 +30,7 @@
     "operating_as": "Operating as",
     "my_profile": "My Profile",
     "switch_role": "Switch Role",
-    "logout": "Logout"
+    "logout": "Disengage"
   },
   "Profile": {
     "title": "Personnel File",
@@ -27,48 +39,50 @@
     "email": "Comm Channel",
     "current_role": "Current Rank",
     "since": "In service since",
-    "stats_title": "Service Stats",
+    "stats_title": "Service Statistics",
     "workouts_completed": "Missions Completed",
     "completion_rate": "Success Rate",
     "active_streak": "Active Streak",
-    "role_switch_desc": "Change your operating rank. Warning: power brings responsibility.",
+    "role_switch_desc": "Change your operational rank. Warning: power comes with responsibility.",
     "coach_mode": "Coach Mode",
     "athlete_mode": "Athlete Mode",
     "save_success": "Profile updated, soldier."
   },
   "Report": {
     "title": "Mission Report",
-    "subtitle": "Fill in post-op data",
+    "subtitle": "Fill in post-operation data",
     "distance": "Distance (km)",
     "duration": "Duration (minutes)",
     "rpe": "Perceived Exertion (RPE)",
-    "rpe_desc": "Effort intensity",
+    "rpe_desc": "Intensity level",
     "is_partial": "Partial / Aborted Mission",
-    "is_partial_desc": "Check if you didn't complete the full workout",
-    "link": "Activity Link",
+    "is_partial_desc": "Check if you did not complete all objectives",
+    "link": "Activity Link (Garmin/Strava)",
+    "shoes_label": "Equipment (Shoes)",
+    "select_shoe": "Select Gear...",
     "notes": "Sensory Notes",
-    "notes_placeholder": "Feelings, pains, weather...",
+    "notes_placeholder": "Feelings, pain, weather...",
     "submit": "Archive Report",
     "cancel": "Cancel",
     "rpe_scale": {
-      "1": "1 - Rest",
+      "1": "1 - Absolute Rest",
       "2": "2 - Very Easy",
       "3": "3 - Easy",
       "4": "4 - Moderate",
       "5": "5 - Challenging",
-      "6": "6 - Hard",
-      "7": "7 - Very Hard",
-      "8": "8 - Very Tough",
+      "6": "6 - Heavy",
+      "7": "7 - Very Heavy",
+      "8": "8 - Severe",
       "9": "9 - Extreme",
-      "10": "10 - Max Effort / Mystical Visions"
+      "10": "10 - Failure / Mystical Visions"
     }
   },
   "Schedule": {
     "title": "Operational Schedule",
     "subtitle": "Monthly planning",
     "today": "Today",
-    "workout_scheduled": "Scheduled Workout",
-    "workout_completed": "Mission Completed",
+    "workout_scheduled": "Planned Workout",
+    "workout_completed": "Mission Accomplished",
     "workout_missed": "Mission Failed",
     "rest_day": "Rest Day",
     "no_workout_details": "No details available."
@@ -77,7 +91,7 @@
     "title": "Operational Results",
     "subtitle": "Weekly Debriefing",
     "total_workouts": "Missions",
-    "total_duration": "Active Hours",
+    "total_duration": "Op Hours",
     "total_distance": "Distance (km)",
     "completion_rate": "Success Rate",
     "vs_last_week": "vs last week",
@@ -94,6 +108,7 @@
     "title_label": "Codename (Title)",
     "desc_label": "Mission Details",
     "notes_label": "Classified Notes (Optional)",
+    "voice_label": "Voice Order",
     "assign_btn": "Transmit Orders",
     "success": "Orders transmitted successfully."
   }
