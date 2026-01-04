@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { Send } from 'lucide-react'
 
-// Server Action inline per semplicità (o spostala in auth-actions.ts)
 async function requestReset(formData: FormData) {
   'use server'
   const email = formData.get('email') as string
@@ -18,7 +17,10 @@ async function requestReset(formData: FormData) {
   redirect(`/${locale}/login?message=check_email`)
 }
 
-export default function ForgotPassword({ params }: { params: { locale: string } }) {
+// CORREZIONE QUI: params è Promise
+export default async function ForgotPassword({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md bg-card p-6 rounded-2xl border border-border shadow-lg">
@@ -26,7 +28,7 @@ export default function ForgotPassword({ params }: { params: { locale: string } 
         <p className="text-sm text-muted-foreground mb-6">Inserisci la tua email. Ti invieremo un link magico per reimpostare la password.</p>
         
         <form action={requestReset} className="space-y-4">
-          <input type="hidden" name="locale" value={params.locale} />
+          <input type="hidden" name="locale" value={locale} />
           <div>
              <input 
                name="email" 

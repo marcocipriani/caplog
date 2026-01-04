@@ -14,8 +14,10 @@ async function updatePassword(formData: FormData) {
   }
 }
 
-export default async function UpdatePasswordPage({ params }: { params: { locale: string } }) {
-  const { locale } = await params
+// CORREZIONE QUI: params è Promise<{ locale: string }>
+export default async function UpdatePasswordPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params // Await dei parametri
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md bg-card p-6 rounded-2xl border border-border shadow-lg">
