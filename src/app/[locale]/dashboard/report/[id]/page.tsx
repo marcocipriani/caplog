@@ -1,11 +1,13 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import Header from '@/components/Header'
 import { getTranslations } from 'next-intl/server'
 import ReportForm from '@/components/ReportForm'
 
-export default async function ReportPage({ params }: { params: { locale: string, id: string } }) {
+// 1. Definisci params come Promise
+export default async function ReportPage({ params }: { params: Promise<{ locale: string, id: string }> }) {
+  // 2. Await dei params
   const { locale, id } = await params;
+  
   const t = await getTranslations('Report');
   
   const supabase = await createClient()
@@ -13,7 +15,7 @@ export default async function ReportPage({ params }: { params: { locale: string,
 
   if (!user) redirect(`/${locale}/login`)
 
-  // Fetch Workout con Sport collegato per avere icone e colori
+  // Fetch Workout con Sport collegato
   const { data: workout } = await supabase
     .from('workouts')
     .select('*, sports(*)')
@@ -34,10 +36,11 @@ export default async function ReportPage({ params }: { params: { locale: string,
     .eq('is_active', true)
     .order('brand', { ascending: true })
 
-  if (!workout) return <div>Allenamento non trovato</div>
+  if (!workout) return <div className="p-10 text-center">Allenamento non trovato</div>
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
+
       <div className="p-4 max-w-xl mx-auto">
         <ReportForm 
           workout={workout} 
