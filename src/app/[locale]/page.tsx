@@ -3,8 +3,10 @@ import { redirect } from 'next/navigation'
 import AthleteDashboard from '@/components/dashboard/AthleteDashboard'
 import CoachDashboard from '@/components/dashboard/CoachDashboard'
 
-export default async function HomePage({ params }: { params: { locale: string } }) {
+// CORREZIONE QUI: params deve essere tipizzato come Promise
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  
   const supabase = await createClient()
 
   // 1. Controllo Autenticazione
