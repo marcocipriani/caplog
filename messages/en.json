@@ -72,5 +72,29 @@
     "workout_missed": "Mission Failed",
     "rest_day": "Rest Day",
     "no_workout_details": "No details available."
+  },
+  "Stats": {
+    "title": "Operational Results",
+    "subtitle": "Weekly Debriefing",
+    "total_workouts": "Missions",
+    "total_duration": "Active Hours",
+    "total_distance": "Distance (km)",
+    "completion_rate": "Success Rate",
+    "vs_last_week": "vs last week",
+    "weekly_progress": "Weekly Progress",
+    "by_sport": "Tactical Breakdown",
+    "no_data": "Insufficient data for tactical analysis."
+  },
+  "Coach": {
+    "new_mission_btn": "Assign New Mission",
+    "create_title": "New Operational Order",
+    "select_athlete": "Select Recruit",
+    "select_sport": "Tactical Type",
+    "date": "Execution Date",
+    "title_label": "Codename (Title)",
+    "desc_label": "Mission Details",
+    "notes_label": "Classified Notes (Optional)",
+    "assign_btn": "Transmit Orders",
+    "success": "Orders transmitted successfully."
   }
 }

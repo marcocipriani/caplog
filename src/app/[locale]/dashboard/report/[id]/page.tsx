@@ -13,9 +13,10 @@ export default async function ReportPage({ params }: { params: { locale: string,
 
   if (!user) redirect(`/${locale}/login`)
 
+  // Fetch Workout con Sport collegato per avere icone e colori
   const { data: workout } = await supabase
     .from('workouts')
-    .select('*')
+    .select('*, sports(*)')
     .eq('id', id)
     .single()
 
@@ -25,19 +26,24 @@ export default async function ReportPage({ params }: { params: { locale: string,
     .eq('id', user.id)
     .single()
 
+  // Fetch Scarpe attive dell'atleta
+  const { data: shoes } = await supabase
+    .from('shoes')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('is_active', true)
+    .order('brand', { ascending: true })
+
   if (!workout) return <div>Allenamento non trovato</div>
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-10">
-      <Header 
-        title={t('title')} 
-        subtitle={workout.title}
-        user={user}
-        profile={profile}
-      />
-
-      <div className="p-4 max-w-lg mx-auto">
-        <ReportForm workoutId={id} locale={locale} />
+    <div className="min-h-screen bg-background text-foreground pb-20">
+      <div className="p-4 max-w-xl mx-auto">
+        <ReportForm 
+          workout={workout} 
+          shoes={shoes || []} 
+          locale={locale} 
+        />
       </div>
     </div>
   )

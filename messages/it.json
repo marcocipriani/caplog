@@ -72,5 +72,29 @@
     "workout_missed": "Missione Fallita",
     "rest_day": "Riposo",
     "no_workout_details": "Nessun dettaglio disponibile."
+  },
+  "Stats": {
+    "title": "Risultati Operativi",
+    "subtitle": "Debriefing Settimanale",
+    "total_workouts": "Missioni",
+    "total_duration": "Ore Operative",
+    "total_distance": "Distanza (km)",
+    "completion_rate": "Tasso Successo",
+    "vs_last_week": "vs sc. sett.",
+    "weekly_progress": "Progresso Settimanale",
+    "by_sport": "Ripartizione Tattica",
+    "no_data": "Dati insufficienti per l'analisi tattica."
+  },
+  "Coach": {
+    "new_mission_btn": "Assegna Nuova Missione",
+    "create_title": "Nuovo Ordine Operativo",
+    "select_athlete": "Seleziona Recluta",
+    "select_sport": "Tipologia Tattica",
+    "date": "Data Esecuzione",
+    "title_label": "Nome in Codice (Titolo)",
+    "desc_label": "Dettagli Missione",
+    "notes_label": "Note Riservate (Opzionale)",
+    "assign_btn": "Trasmetti Ordini",
+    "success": "Ordini trasmessi con successo."
   }
 }

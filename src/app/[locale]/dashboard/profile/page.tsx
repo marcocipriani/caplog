@@ -1,117 +1,118 @@
-import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
-import BottomNav from '@/components/BottomNav'
-import Header from '@/components/Header'
-import { getTranslations } from 'next-intl/server'
-import { User, Shield, Zap, TrendingUp, Calendar } from 'lucide-react'
-import { switchUserRole } from '@/actions/user-actions'
+'use client'
 
-export default async function ProfilePage({ params }: { params: { locale: string } }) {
-  const { locale } = await params;
-  const t = await getTranslations('Profile');
-  const tRole = await getTranslations('Role');
+import { createClient } from '@/utils/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect, use } from 'react' // 1. Aggiungi 'use' qui
+import { User, Shield, Medal, LogOut, Settings } from 'lucide-react'
+import { toggleUserRole } from '@/actions/user-actions'
+import Image from 'next/image'
 
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+// 2. Definisci params come Promise
+export default function ProfilePage({ params }: { params: Promise<{ locale: string }> }) {
+  // 3. Spacchetta i params con l'hook use()
+  const { locale } = use(params)
 
-  if (!user) {
-    redirect(`/${locale}/login`)
+  const [user, setUser] = useState<any>(null)
+  const [profile, setProfile] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [isSwitching, setIsSwitching] = useState(false)
+  
+  const supabase = createClient()
+  const router = useRouter()
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUser(user)
+        const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single()
+        setProfile(data)
+      }
+      setLoading(false)
+    }
+    getData()
+  }, [supabase])
+
+  const handleRoleToggle = async () => {
+    if (!profile || !user) return
+    setIsSwitching(true)
+    // 4. Usa la variabile 'locale' spacchettata, non params.locale
+    await toggleUserRole(profile.role, user.id, locale)
+    setIsSwitching(false)
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    router.refresh()
+  }
 
-  const currentRole = profile?.role || 'athlete'
+  if (loading) return <div className="p-8 text-center text-muted-foreground">Caricamento profilo...</div>
+
+  const isCoach = profile?.role === 'coach'
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-24">
+    <div className="max-w-2xl mx-auto p-4 space-y-6">
       
-      <Header 
-        title={t('title')}
-        user={user}
-        profile={profile}
-      />
-
-      <div className="p-4 space-y-6">
+      {/* HEADER PROFILO */}
+      <div className="bg-card border border-border rounded-2xl p-6 flex flex-col items-center text-center shadow-sm">
+        <div className="w-24 h-24 rounded-full border-4 border-background shadow-xl mb-4 relative overflow-hidden">
+            {profile?.avatar_url ? (
+                <Image src={profile.avatar_url} alt="Avatar" fill className="object-cover" />
+            ) : (
+                <div className="w-full h-full bg-secondary flex items-center justify-center text-3xl font-bold">
+                    {profile?.full_name?.[0] || user?.email?.[0]?.toUpperCase()}
+                </div>
+            )}
+        </div>
         
-        {/* CARD INFO */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <User size={100} />
-          </div>
+        <h2 className="text-2xl font-bold font-oswald uppercase">{profile?.full_name || 'Recluta'}</h2>
+        <p className="text-muted-foreground text-sm">{user?.email}</p>
+
+        <div className={`mt-3 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest inline-flex items-center gap-1.5 border ${
+             isCoach ? 'bg-primary/10 text-primary border-primary/20' : 'bg-blue-500/10 text-blue-500 border-blue-500/20'
+        }`}>
+            {isCoach ? <Shield size={12} /> : <Medal size={12} />}
+            {isCoach ? 'Grado: Coach' : 'Grado: Atleta'}
+        </div>
+      </div>
+
+      {/* AZIONI RAPIDE */}
+      <div className="grid gap-4">
           
-          <h2 className="text-primary font-bold text-xs uppercase mb-4 flex items-center gap-2">
-            <Shield size={14} /> {t('personal_info')}
-          </h2>
-
-          <div className="space-y-4 relative z-10">
-            <div>
-              <label className="text-[10px] uppercase text-muted-foreground font-bold">{t('full_name')}</label>
-              <p className="text-lg font-bold font-oswald">{profile?.full_name || 'N/A'}</p>
-            </div>
-            <div>
-              <label className="text-[10px] uppercase text-muted-foreground font-bold">{t('email')}</label>
-              <p className="text-sm font-mono text-foreground/80">{user.email}</p>
-            </div>
-            <div>
-               <label className="text-[10px] uppercase text-muted-foreground font-bold">{t('since')}</label>
-               <p className="text-sm text-foreground/80 flex items-center gap-2">
-                 <Calendar size={14} />
-                 {new Date(user.created_at).toLocaleDateString()}
-               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* ROLE SWITCH */}
-        <div className="bg-secondary/20 border border-primary/20 rounded-2xl p-6">
-          <div className="flex justify-between items-start mb-4">
-             <div>
-                <h2 className="text-primary font-bold text-xs uppercase flex items-center gap-2">
-                  <Zap size={14} /> {t('current_role')}
-                </h2>
-                <p className="text-xs text-muted-foreground mt-1 max-w-[200px]">
-                  {t('role_switch_desc')}
-                </p>
+          {/* CARD CAMBIO RUOLO */}
+          <div className="bg-card border border-border rounded-xl p-5 flex items-center justify-between">
+             <div className="flex items-center gap-3">
+                <div className="p-2 bg-secondary rounded-lg">
+                    <Settings size={20} />
+                </div>
+                <div>
+                    <h3 className="font-bold text-sm">Modalità Operativa</h3>
+                    <p className="text-xs text-muted-foreground">Passa da vista Atleta a vista Coach</p>
+                </div>
              </div>
-             <span className={`px-3 py-1 rounded text-xs font-black uppercase ${currentRole === 'coach' ? 'bg-orange-500 text-white' : 'bg-blue-600 text-white'}`}>
-               {tRole(currentRole)}
-             </span>
+             
+             <button 
+                onClick={handleRoleToggle}
+                disabled={isSwitching}
+                className="px-4 py-2 bg-primary text-primary-foreground text-xs font-bold uppercase rounded-lg active:scale-95 transition-all"
+             >
+                {isSwitching ? '...' : 'Cambia'}
+             </button>
           </div>
 
-          <form action={async () => {
-            'use server'
-            const newRole = currentRole === 'athlete' ? 'coach' : 'athlete'
-            await switchUserRole(user.id, newRole)
-          }} className="mt-4">
-            <button 
-              type="submit"
-              className="w-full py-3 bg-card hover:bg-secondary border-2 border-dashed border-border hover:border-primary text-foreground font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2 uppercase"
-            >
-              {currentRole === 'athlete' ? t('coach_mode') : t('athlete_mode')}
-            </button>
-          </form>
-        </div>
-
-        {/* STATS */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center justify-center text-center">
-             <TrendingUp className="text-green-500 mb-2" size={24} />
-             <span className="text-3xl font-black font-oswald">12</span>
-             <span className="text-[10px] text-muted-foreground uppercase">{t('workouts_completed')}</span>
-          </div>
-          <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-center justify-center text-center">
-             <Zap className="text-yellow-500 mb-2" size={24} />
-             <span className="text-3xl font-black font-oswald">85%</span>
-             <span className="text-[10px] text-muted-foreground uppercase">{t('completion_rate')}</span>
-          </div>
-        </div>
+          {/* CARD LOGOUT */}
+          <button 
+            onClick={handleSignOut}
+            className="w-full bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-500 p-4 rounded-xl flex items-center justify-center gap-2 font-bold uppercase text-sm transition-colors"
+          >
+            <LogOut size={18} /> Disconnessione
+          </button>
 
       </div>
-      <BottomNav />
+      
+      <p className="text-center text-[10px] text-muted-foreground uppercase tracking-widest opacity-50 pt-8">
+        CapLog System v1.0
+      </p>
     </div>
   )
 }

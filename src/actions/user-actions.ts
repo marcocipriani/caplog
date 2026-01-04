@@ -3,20 +3,21 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-export async function switchUserRole(userId: string, newRole: 'coach' | 'athlete') {
+export async function toggleUserRole(currentRole: string, userId: string, locale: string) {
   const supabase = await createClient()
 
-  // 1. Aggiorna il ruolo nel DB
+  const newRole = currentRole === 'coach' ? 'athlete' : 'coach'
+
   const { error } = await supabase
     .from('profiles')
     .update({ role: newRole })
     .eq('id', userId)
 
   if (error) {
-    throw new Error('Impossibile cambiare grado, soldato.')
+    console.error('Errore cambio ruolo:', error)
+    return
   }
 
-  // 2. Ricarica la pagina per mostrare le nuove opzioni
-  revalidatePath('/dashboard')
-  revalidatePath('/dashboard/profile')
+  // Ricarica la pagina per mostrare la nuova dashboard
+  revalidatePath('/', 'layout')
 }
