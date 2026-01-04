@@ -9,10 +9,10 @@ const intlMiddleware = createMiddleware({
 })
 
 export async function middleware(request: NextRequest) {
-  // 1. Eseguiamo PRIMA Next-Intl per ottenere la risposta corretta (redirect lingua o rewrite)
+  // 1. Next-Intl gestisce routing e lingua
   const response = intlMiddleware(request)
 
-  // 2. Creiamo il client Supabase usando la risposta di Next-Intl
+  // 2. Supabase gestisce la sessione
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_KEY!,
@@ -21,7 +21,8 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
+        // CORREZIONE QUI: Aggiunto il tipo esplicito per TypeScript
+        setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
           cookiesToSet.forEach(({ name, value, options }) => {
             request.cookies.set(name, value)
             response.cookies.set(name, value, options)
@@ -31,17 +32,14 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // 3. Rinfreschiamo la sessione (IMPORTANTE: non blocchiamo se fallisce)
-  // Questo aggiorna i cookie nella 'response' se il token è scaduto
+  // 3. Refresh del token se necessario
   await supabase.auth.getUser()
 
-  // 4. Ritorniamo la risposta originale di Next-Intl (arricchita dai cookie Supabase)
   return response
 }
 
 export const config = {
   matcher: [
-    // Matcher preciso per escludere file statici e API interne
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
