@@ -1,11 +1,11 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import Header from '@/components/Header'
 import { getTranslations } from 'next-intl/server'
 import CreateWorkoutForm from '@/components/CreateWorkoutForm'
 
-export default async function NewMissionPage({ params }: { params: { locale: string } }) {
-  const { locale } = await params;
+// 1. Definisci params come Promise
+export default async function NewMissionPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params; // Await dei params
   const t = await getTranslations('Coach');
 
   const supabase = await createClient()
@@ -13,7 +13,6 @@ export default async function NewMissionPage({ params }: { params: { locale: str
 
   if (!user) redirect(`/${locale}/login`)
 
-  // Controllo sicurezza: Profilo e Ruolo
   const { data: profile } = await supabase
     .from('profiles')
     .select('*')
@@ -25,13 +24,12 @@ export default async function NewMissionPage({ params }: { params: { locale: str
   }
 
   // 1. Recuperiamo tutti gli Atleti
-  // (In un'app reale prenderemmo solo quelli assegnati a questo coach, qui prendiamo tutti gli 'athlete')
   const { data: athletes } = await supabase
     .from('profiles')
     .select('id, full_name, email')
     .eq('role', 'athlete')
   
-  // Se non ci sono atleti, fallback sull'utente stesso per testare
+  // Fallback se non ci sono atleti
   const athleteList = athletes && athletes.length > 0 
     ? athletes 
     : [{ id: user.id, full_name: 'Me Stesso (Test)', email: user.email }]
@@ -44,17 +42,17 @@ export default async function NewMissionPage({ params }: { params: { locale: str
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
-      <Header 
-        title={t('create_title')} 
-        user={user}
-        profile={profile}
-      />
-
+      {/* Titolo Pagina (Opzionale, visto che l'header ha il titolo dinamico, ma utile per contesto) */}
       <div className="p-4 max-w-lg mx-auto">
+         <h1 className="text-2xl font-bold font-oswald uppercase mb-6 flex items-center gap-2">
+            {t('create_title')}
+         </h1>
+
          <CreateWorkoutForm 
             athletes={athleteList} 
             sports={sports || []} 
             locale={locale} 
+            coachId={user.id}
          />
       </div>
     </div>

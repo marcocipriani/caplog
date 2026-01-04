@@ -36,9 +36,10 @@ interface Props {
   athletes: any[]
   sports: any[]
   locale: string
+  coachId: string
 }
 
-export default function CreateWorkoutForm({ athletes, sports, locale }: Props) {
+export default function CreateWorkoutForm({ athletes, sports, locale, coachId }: Props) {
   const t = useTranslations('Coach')
   const [selectedSportId, setSelectedSportId] = useState<string>(sports[0]?.id?.toString() || '')
   const audioInputRef = useRef<HTMLInputElement>(null)
@@ -63,6 +64,7 @@ export default function CreateWorkoutForm({ athletes, sports, locale }: Props) {
   return (
     <form action={createWorkout} className="space-y-4">
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="coachId" value={coachId} />
       
       <input 
         type="file" 
