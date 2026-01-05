@@ -47,6 +47,12 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 14 71.8% 57%;
   }
+
+  [data-role="coach"] {
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --ring: 217 91% 60%;
+  }
 }
  
 @layer base {

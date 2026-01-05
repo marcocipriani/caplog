@@ -1,23 +1,35 @@
 'use server'
 
-import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { createClient } from '@/utils/supabase/client'
 
-export async function toggleUserRole(currentRole: string, userId: string, locale: string) {
+export async function switchUserRole(locale: string, newRole: 'coach' | 'athlete') {
+  const cookieStore = await cookies()
+  
+  cookieStore.set('caplog_active_role', newRole, {
+    path: '/',
+    maxAge: 60 * 60 * 24 * 30,
+    sameSite: 'lax' 
+  })
+
+  revalidatePath('/')
+  redirect(`/${locale}`)
+}
+
+export async function upgradeToCoach(userId: string) {
   const supabase = await createClient()
-
-  const newRole = currentRole === 'coach' ? 'athlete' : 'coach'
-
+  
   const { error } = await supabase
     .from('profiles')
-    .update({ role: newRole })
+    .update({ role: 'coach' })
     .eq('id', userId)
 
-  if (error) {
-    console.error('Errore cambio ruolo:', error)
-    return
-  }
+  if (error) throw new Error('Impossibile aggiornare il ruolo')
 
-  // Ricarica la pagina per mostrare la nuova dashboard
+  const cookieStore = await cookies()
+  cookieStore.set('caplog_active_role', 'coach', { path: '/' })
+
   revalidatePath('/', 'layout')
 }

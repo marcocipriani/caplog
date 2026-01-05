@@ -73,3 +73,42 @@ export async function createWorkout(formData: FormData) {
   revalidatePath(`/${locale}/dashboard`)
   redirect(`/${locale}/dashboard`)
 }
+
+export async function removeAthlete(formData: FormData) {
+  const athleteId = formData.get('athleteId') as string
+  const supabase = await createClient()
+  
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('profiles')
+    .update({ coach_id: null }) 
+    .eq('id', athleteId)
+    .eq('coach_id', user.id) 
+
+  revalidatePath('/dashboard/coach/athletes')
+}
+
+export async function transferAthlete(formData: FormData) {
+  const athleteId = formData.get('athleteId') as string
+  const newCoachId = formData.get('newCoachId') as string
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('profiles')
+    .update({ coach_id: newCoachId })
+    .eq('id', athleteId)
+    .eq('coach_id', user.id)
+
+  revalidatePath('/dashboard/coach/athletes')
+}
+
+export async function signOutAction() {
+  const supabase = await createClient()
+  await supabase.auth.signOut()
+  redirect('/login')
+}
