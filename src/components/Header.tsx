@@ -64,7 +64,7 @@ export default function Header({ user, profile, activeRole, locale }: HeaderProp
         {/* --- SX: MASCOTTE --- */}
         <div className="flex items-center gap-3">
           <Link href={`/${locale}`} className="relative w-10 h-10 hover:scale-105 transition-transform">
-             <Image src="/cap-mascot.png" alt="Cap" fill className="object-contain" />
+             <Image src="/cap-mascot.png" alt="Cap" fill className="object-contain" sizes="50px"/>
           </Link>
           <div className="h-8 w-[1px] bg-border mx-1 hidden sm:block"></div>
           <div className="flex flex-col justify-center">

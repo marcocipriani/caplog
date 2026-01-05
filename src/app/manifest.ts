@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: 'CapLog',
     description: 'Il sistema di allenamento definitivo per coach e atleti.',
     start_url: '/',
-    display: 'standalone', // Nasconde la barra del browser
+    display: 'standalone',
     background_color: '#09090b', // Colore di sfondo (Dark)
     theme_color: '#f97316', // Colore primario (Arancione Atleta)
     orientation: 'portrait',
@@ -22,7 +22,7 @@ export default function manifest(): MetadataRoute.Manifest {
         type: 'image/png',
       },
       {
-        src: '/icons/maskable-icon.png', // Icona adattabile (Android)
+        src: '/icons/maskable-icon.png',
         sizes: '512x512',
         type: 'image/png',
         purpose: 'maskable',

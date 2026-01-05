@@ -20,13 +20,11 @@ export default function BottomNav({ role, locale }: BottomNavProps) {
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border pb-safe transition-colors duration-300">
       <div className="flex justify-around items-center h-16 max-w-md mx-auto px-2">
         
-        {/* --- HOME (SX) --- */}
         <Link href={`/${locale}`} className={`flex flex-col items-center gap-1 w-20 ${pathname === `/${locale}` ? 'text-primary' : 'text-muted-foreground'}`}>
           <Home size={24} strokeWidth={pathname === `/${locale}` ? 2.5 : 2} />
           <span className="text-[10px] font-bold uppercase">Home</span>
         </Link>
 
-        {/* --- CENTRALE (Dinamico) --- */}
         {isManager ? (
             <Link href={`/${locale}/dashboard/manager/users`} className={`flex flex-col items-center gap-1 w-20 ${isActive('/dashboard/manager/users')}`}>
               <div className="bg-purple-600/10 p-2 rounded-full mb-1">
@@ -46,7 +44,6 @@ export default function BottomNav({ role, locale }: BottomNavProps) {
             </Link>
         )}
 
-        {/* --- DESTRA (Dinamico) --- */}
         {isManager ? (
              <Link href={`/${locale}/dashboard/stats`} className={`flex flex-col items-center gap-1 w-20 ${isActive('/dashboard/stats')}`}>
               <BarChart2 size={24} />

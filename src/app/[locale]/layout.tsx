@@ -13,16 +13,14 @@ import { cookies } from 'next/headers'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
 
-// 3. CONFIGURAZIONE VIEWPORT PWA (Step 4)
 export const viewport: Viewport = {
-  themeColor: '#f97316', // Arancione CapLog
+  themeColor: '#f97316',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false, // Disabilita zoom per feeling app nativa
+  userScalable: false,
 }
 
-// 4. METADATA BASE PWA
 export const metadata: Metadata = {
   title: "CapLog Training",
   description: "Training System",
@@ -58,8 +56,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning data-role={activeRole}>
-      <body className={`${inter.variable} ${oswald.variable} font-sans bg-background text-foreground antialiased`}>
-        
+      <body className={`${inter.variable} ${oswald.variable} font-sans`}>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -68,25 +65,30 @@ export default async function LocaleLayout({
           >
             <NextIntlClientProvider messages={messages}>
               
-              {user && profile && (
-                <Header 
-                  user={user} 
-                  profile={profile} 
-                  activeRole={activeRole} 
-                  locale={locale} 
-                />
-              )}
+              <div className="min-h-screen w-full flex justify-center bg-background">
+                <div className="w-full max-w-lg min-h-screen bg-background relative flex flex-col md:border-x md:border-border">
+                  
+                  {user && profile && (
+                    <Header 
+                      user={user} 
+                      profile={profile} 
+                      activeRole={activeRole} 
+                      locale={locale} 
+                    />
+                  )}
 
-              <main className={user ? "pt-20 pb-24" : ""}>
-                {children}
-              </main>
+                  <main className={`flex-1 w-full ${user ? "pt-20 pb-28" : ""}`}>
+                    {children}
+                  </main>
 
-              {/* 5. Componente Prompt Installazione PWA */}
-              <PwaInstallPrompt />
+                  <PwaInstallPrompt />
 
-              {user && profile && (
-                <BottomNav role={activeRole} locale={locale} />
-              )}
+                  {user && profile && (
+                    <BottomNav role={activeRole} locale={locale} />
+                  )}
+                  
+                </div>
+              </div>
 
             </NextIntlClientProvider>
         </ThemeProvider>

@@ -7,25 +7,26 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
   const { locale } = await params
   const supabase = await createClient()
 
-  // 1. Verifica Utente
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
     redirect(`/${locale}/login`)
   }
 
-  // 2. Prendi Profilo
   const { data: profile } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', user.id)
     .single()
 
-  // 3. Routing basato su ruolo
-  if (profile?.role === 'coach') {
-    // redirect(`/${locale}/dashboard/coach`)
-    return <CoachDashboard user={user} profile={profile} locale={locale} />
-  } else {
-    // Atleta
-    return <AthleteDashboard user={user} profile={profile} locale={locale} />
-  }
+  return (
+    <div className="min-h-screen bg-background text-foreground pb-24">
+      <div className="p-4 max-w-lg mx-auto space-y-6">
+        {profile?.role === 'coach' ? (
+          <CoachDashboard user={user} profile={profile} locale={locale} />
+        ) : (
+          <AthleteDashboard user={user} profile={profile} locale={locale} />
+        )}
+      </div>
+    </div>
+  )
 }
