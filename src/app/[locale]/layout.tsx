@@ -6,7 +6,6 @@ import { getMessages } from 'next-intl/server'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/Header'
-import BottomNav from '@/components/BottomNav'
 import PwaInstallPrompt from '@/components/PwaInstallPrompt'
 import { cookies } from 'next/headers'
 
@@ -66,7 +65,8 @@ export default async function LocaleLayout({
             <NextIntlClientProvider messages={messages}>
               
               <div className="min-h-screen w-full flex justify-center bg-background">
-                <div className="w-full max-w-lg min-h-screen bg-background relative flex flex-col md:border-x md:border-border">
+                {/* RIMOSSO BORDIE E OMBRE: Ora è pulito */}
+                <div className="w-full max-w-lg bg-background relative flex flex-col min-h-screen">
                   
                   {user && profile && (
                     <Header 
@@ -77,15 +77,11 @@ export default async function LocaleLayout({
                     />
                   )}
 
-                  <main className={`flex-1 w-full ${user ? "pt-20 pb-28" : ""}`}>
+                  <main className={`flex-1 w-full ${user ? "pt-24 pb-6" : ""}`}>
                     {children}
                   </main>
 
                   <PwaInstallPrompt />
-
-                  {user && profile && (
-                    <BottomNav role={activeRole} locale={locale} />
-                  )}
                   
                 </div>
               </div>
