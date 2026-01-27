@@ -1,25 +1,27 @@
 import { 
   Activity, Bike, Footprints, Waves, Dumbbell, 
-  Trophy, Zap, Mountain, Goal, Target, Timer, HeartPulse 
+  Trophy, Mountain, CircleDot, Timer, HeartPulse,
+  Gamepad2, Dribbble, Sword
 } from 'lucide-react'
 
-// Mappa delle icone disponibili per la creazione dello sport
+// Mappa estesa delle icone
 export const AVAILABLE_ICONS = [
   { key: 'run', icon: Footprints, label: 'Corsa' },
+  { key: 'walk', icon: Footprints, label: 'Camminata' },
   { key: 'bike', icon: Bike, label: 'Bici' },
   { key: 'swim', icon: Waves, label: 'Nuoto' },
-  { key: 'gym', icon: Dumbbell, label: 'Palestra' },
-  { key: 'activity', icon: Activity, label: 'Generico' },
+  { key: 'dumbbell', icon: Dumbbell, label: 'Pesi/Gym' },
+  { key: 'ball', icon: Dribbble, label: 'Sport Palla' },
+  { key: 'tennis', icon: CircleDot, label: 'Racchetta' },
+  { key: 'mountain', icon: Mountain, label: 'Montagna' },
+  { key: 'boxing', icon: Sword, label: 'Combattimento' },
+  { key: 'yoga', icon: Activity, label: 'Flex/Yoga' },
+  { key: 'rowing', icon: Waves, label: 'Remi' },
   { key: 'trophy', icon: Trophy, label: 'Gara' },
-  { key: 'zap', icon: Zap, label: 'Potenza' },
-  { key: 'mountain', icon: Mountain, label: 'Salita' },
-  { key: 'goal', icon: Goal, label: 'Tecnica' },
-  { key: 'target', icon: Target, label: 'Precisione' },
-  { key: 'timer', icon: Timer, label: 'Tempo' },
   { key: 'cardio', icon: HeartPulse, label: 'Cardio' },
+  { key: 'generic', icon: Timer, label: 'Altro' },
 ]
 
-// Helper per ottenere l'icona dinamicamente
 export const getSportIcon = (key: string) => {
   const found = AVAILABLE_ICONS.find(i => i.key === key)
   return found ? found.icon : Activity

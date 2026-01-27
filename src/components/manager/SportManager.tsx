@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { addSport, deleteSport } from '@/app/actions/sport-actions'
+import { addSport, deleteSport } from '@/actions/sport-actions'
 import { AVAILABLE_ICONS, getSportIcon } from '@/utils/sport-config'
 import { Trash2, Plus, Check } from 'lucide-react'
 

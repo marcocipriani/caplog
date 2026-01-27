@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react'
 export default function AddWorkoutPlaceholder({ locale }: { locale: string }) {
   return (
     <Link 
-      href={`/${locale}/dashboard/coach/add`} // O una pagina specifica per atleta se diversa
+      href={`/${locale}/dashboard/athlete/add`}
       className="group block w-full"
     >
       <div className="h-24 rounded-xl border-2 border-dashed border-border hover:border-primary/50 bg-transparent hover:bg-secondary/30 transition-all flex flex-col items-center justify-center gap-2 cursor-pointer">
@@ -12,7 +12,7 @@ export default function AddWorkoutPlaceholder({ locale }: { locale: string }) {
             <Plus size={18} className="text-muted-foreground group-hover:text-primary" />
          </div>
          <span className="text-xs font-bold uppercase text-muted-foreground group-hover:text-primary transition-colors">
-            Aggiungi Extra
+            Registra Attività / Extra
          </span>
       </div>
     </Link>

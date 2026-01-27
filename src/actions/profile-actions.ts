@@ -58,3 +58,38 @@ export async function downgradeToAthlete() {
 
   revalidatePath('/', 'layout')
 }
+
+export async function assignCoach(coachId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) return { error: 'Non autorizzato' }
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ coach_id: coachId })
+    .eq('id', user.id)
+
+  if (error) return { error: error.message }
+  
+  revalidatePath('/dashboard/profile')
+  revalidatePath('/dashboard/chat') // Aggiorna anche la chat
+  return { success: true }
+}
+
+export async function removeCoach() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) return { error: 'Non autorizzato' }
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ coach_id: null })
+    .eq('id', user.id)
+
+  if (error) return { error: error.message }
+  
+  revalidatePath('/dashboard/profile')
+  return { success: true }
+}
